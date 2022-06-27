@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OnClick/innerHTML</title>
+		
+		<!-- jQuery -->
+		<script type="text/javascript" src="./assets/js/jquery/jquery-1.12.4.js"></script>
+	</head>
+	<body>
+		<div>
+		   <button id="btn" type="button">테스트버튼</button>
+		   <h3 id="display">출력영역</h3>
+		</div>
+	</body>
+	<script type="text/javascript">
+		   window.onload = function() {
+		      var btn = $("#btn");
+		      var display = $("#display");
+		      
+		      btn.on("click", function(){
+		    	  display.html("<font color='red'>NOOOOOOOOOOOOOOOOOOOOOOOO</font>");
+		      });
+		   };
+	</script>
+</html>
