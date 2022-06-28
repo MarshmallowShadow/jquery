@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>계산기</title>
+		<script type="text/javascript" src="./assets/js/jquery/jquery-1.12.4.js"></script>
+	</head>
+	<body>
+		<input type="text" id="display" style="width: 130px">
+		<br>
+		<button type="button" id="b7" name="bnum" value="7" style="width: 30px">7</button>
+		<button type="button" id="b8" name="bnum" value="8" style="width: 30px">8</button>
+		<button type="button" id="b9" name="bnum" value="9" style="width: 30px">9</button>
+		<button type="button" id="divide" name="op" value="/" style="width: 30px">/</button>
+		<br>
+		<button type="button" id="b4" name="bnum" value="4" style="width: 30px">4</button>
+		<button type="button" id="b5" name="bnum" value="5" style="width: 30px">5</button>
+		<button type="button" id="b6" name="bnum" value="6" style="width: 30px">6</button>
+		<button type="button" id="multiply" name="op" value="*" style="width: 30px">*</button>
+		<br>
+		<button type="button" id="b1" name="bnum" value="1" style="width: 30px">1</button>
+		<button type="button" id="b2" name="bnum" value="2" style="width: 30px">2</button>
+		<button type="button" id="b3" name="bnum" value="3" style="width: 30px">3</button>
+		<button type="button" id="subtract" name="op" value="-" style="width: 30px">-</button>
+		<br>
+		<button type="button" id="b0" name="bnum" value="0" style="width: 30px">0</button>
+		<button type="button" id="cancel" style="width: 30px">C</button>
+		<button type="button" id="equals" style="width: 30px">=</button>
+		<button type="button" id="add" name="op" value="+" style="width: 30px">+</button>
+	</body>
+	<script type="text/javascript">
+		var reset = true;
+		var operator;
+		var a;
+		var b;
+		var display = $("#display");
+		var bnum = $("[name = bnum]"); //does not work when using .bnum?
+		var op = $("[name = op]");
+		var c = $("#cancel");
+		var e = $("#equals");
+		
+		display.val("0");
+		
+		bnum.on("click", function(){
+			var num = $(this).val();
+			if(reset == false) {
+				display.val(display.val() + num);
+			} else {
+				display.val(num);
+				if(display.val() != "0") {
+					reset = false;
+				}
+			}
+		});
+		
+		op.on("click", function(){
+			if(a != undefined){
+				display.val(calculate(operator, a));
+			}
+			a = display.val();
+			operator = $(this).val();
+			reset = true;
+		});
+		
+		c.on("click", function(){
+			display.val("0");
+			a = undefined;
+			operator = undefined;
+			reset = true;
+		});
+		
+		e.on("click", function(){
+			display.val(calculate(operator, a));
+			a = undefined;
+			reset = true;
+		});
+		
+		var calculate = function(operator, n) {
+			a = parseInt(n);
+			b = parseInt(display.val());
+			
+			switch(operator){
+				case "+":
+					var result = a + b;
+					break;
+				case "-":
+					var result = a - b;
+					break;
+				case "*":
+					var result = a * b;
+					break;
+				case "/":
+					if(b == 0){
+						var result = "undef";
+					} else {
+						var result = a / b;
+					}
+					break;
+				default:
+					if(a != undefined) {
+						var result = a;
+					} else {
+						var result = 0;
+					}
+					break;
+			};
+			return result;
+		};
+	</script>
+</html>
